@@ -22,11 +22,11 @@ import UserBadgeItem from "../UserAvatar/UserBadgeItem";
 import axios from "axios";
 import UserListItem from "../UserAvatar/UserListItem";
 
-const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
+const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain,fetchMessages }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user, selectedChat, setSelectedChat } = ChatState();
-  console.log(selectedChat, " userGroupChatUpodatete");
-  console.log(user, " userGroupChatUpodatete");
+  // console.log(selectedChat, " userGroupChatUpodatete");
+  // console.log(user, " userGroupChatUpodatete");
 
   const [groupChatName, setGroupChatName] = useState();
   const [search, setSearch] = useState("");
@@ -35,9 +35,50 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
   const [renameloading, setRenameLoading] = useState(false);
   const toast = useToast();
 
-  const handleRemove = () => {
-    console.log("handle Click");
-  };
+  const handleRemove = async(user1) => {
+    if (selectedChat.groupAdmin._id !== user._id && user1._id !== user._id) {
+      toast({
+        title: "Only admins can remove someone!",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.put(
+        `/api/chat/groupremove`,
+        {
+          chatId: selectedChat._id,
+          userId: user1._id,
+        },
+        config
+      );
+
+      // user1._id === user._id ? setSelectedChat() : setSelectedChat(data);  // we dont want to user to do any thing the group
+      setFetchAgain(!fetchAgain);
+      fetchMessages();
+      setLoading(false);
+    } catch (error) {
+      toast({
+        title: "Error Occured!",
+        description: error.response.data.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setLoading(false);
+    }
+    setGroupChatName("");  };
   const handleRename = async () => {
     console.log("handle Rename group");
     if (!groupChatName) {
@@ -125,16 +166,47 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
     }
     // make sure that only admin can edit the users in group
     if (selectedChat.groupAdmin._id !== user._id) {
-        toast({
-          title: "Only admins can add someone!",
-          description:`${selectedChat?.groupAdmin} is The Admin for this Group`,
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-        return;
-      }
+      toast({
+        title: "Only admins can add someone!",
+        description: `${selectedChat?.groupAdmin} is The Admin for this Group`,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+    try {
+      setLoading(true);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.put(
+        `/api/chat/groupadd`,
+        {
+          chatId: selectedChat._id,
+          userId: user1._id,
+        },
+        config
+      );
+
+      setSelectedChat(data);
+      setFetchAgain(!fetchAgain);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Error Occured!",
+        description: error.response.data.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setLoading(false);
+    }
   };
 
   return (

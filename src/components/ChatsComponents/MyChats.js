@@ -9,7 +9,7 @@ import GroupChatModal from "../PopUps/GroupChatModal";
 
 const MyChats = ({fetchAgain}) => {
   const { user, setSelectedChat, selectedChat, chats, setChats } = ChatState();
-  console.log("chats in my chat side", chats);
+  // console.log("chats in my chat side", chats);
   const toast = useToast();
   const [loggedUser, setLoggedUser] = useState();
   const fetchChats = async () => {
@@ -22,7 +22,7 @@ const MyChats = ({fetchAgain}) => {
       };
 
       const { data } = await axios.get("/api/chat", config);
-      console.log("mychatsData", data);
+      // console.log("mychatsData", data);
       setChats(data);
     } catch (error) {
       toast({
@@ -81,7 +81,7 @@ const MyChats = ({fetchAgain}) => {
         borderRadius="lg"
         overflowY="hidden"
       >
-        {console.log(chats, "chatsoo")}
+        {/* {console.log(chats, "chatsoo")} */}
         {chats ? (
           <Stack overflowY="scroll">
             {chats.map((chat) => (

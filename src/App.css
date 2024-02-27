@@ -1,15 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;1,300&display=swap');
 
 .App {
-    min-height: 100vh;
-    display: flex;
-    background-image: url("./backLogin.jpg");
-    background-position: center;
-    background-size: cover;
-    color: black;
-  }
-  
-  
+  min-height: 100vh;
+  display: flex;
+  /* background-image: url("./backLogin.jpg"); */
+  background: linear-gradient(to left, rgb(135, 232, 138), rgb(135, 206, 235));
+  background-position: center;
+  background-size: cover;
+  color: black;
+}
+
+
 ::-webkit-scrollbar {
   width: 0px;
 }
@@ -21,4 +22,23 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.senderChat {
+}
+
+.senderChat:hover {
+  color: rgb(0, 0, 0);
+  background-color: rgb(96, 185, 237)!important; 
+  transition: 0.4s;
+
+}
+
+.recieveChat {
+}
+
+.recieveChat:hover {
+  color: black;
+  background-color:rgb(102, 200, 140)!important; 
+  transition: 0.4s;
 }

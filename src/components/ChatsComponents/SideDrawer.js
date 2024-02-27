@@ -17,6 +17,7 @@ import {
   Text,
   Toast,
   Tooltip,
+  useColorMode,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
@@ -26,6 +27,8 @@ import {
   WarningIcon,
   BellIcon,
   ChevronDownIcon,
+  MoonIcon,
+  SunIcon,
 } from "@chakra-ui/icons";
 import React, { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
@@ -34,6 +37,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ChatLoading from "../Loaders/ChatLoading";
 import UserListItem from "../UserAvatar/UserListItem";
+import ToggleSwitch from "../Theme/ToggleSwitch";
 
 const SideDrawer = () => {
   const { user, setSelectedChat, selectedChat, chats, setChats } = ChatState();
@@ -45,6 +49,7 @@ const SideDrawer = () => {
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   //  logout User
   const logoutHandler = () => {
@@ -143,6 +148,11 @@ const SideDrawer = () => {
         </Text>
         <div>
           <Menu>
+            {/* <Button onClick={toggleColorMode} aria-label="Toggle color mode" variant="ghost">
+          {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+        </Button> */}
+            <ToggleSwitch />
+
             <MenuButton p={1}>
               <BellIcon fontSize="2xl" m={1} />
             </MenuButton>

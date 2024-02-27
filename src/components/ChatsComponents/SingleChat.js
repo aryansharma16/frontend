@@ -1,13 +1,155 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
-import { Box, IconButton, Text } from "@chakra-ui/react";
+import "./styles.css";
+import {
+  Box,
+  FormControl,
+  IconButton,
+  Input,
+  Spinner,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { getSender, getSenderFull } from "../../config/ChatLogic";
 import ProfileModal from "../PopUps/ProfileModal";
 import UpdateGroupChatModal from "./UpdateGroupChatModal";
+import axios from "axios";
+import ScrollableChat from "./ScrollableChat";
+import io from "socket.io-client";
+
+const ENDPOINT = "http://localhost:5200"; // backend server - will be  chnage when be deployed
+var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const { user, chats, setChats, selectedChat, setSelectedChat } = ChatState();
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [newMessage, setNewMessage] = useState("");
+  const [socketConnected, setSocketConnected] = useState(false);
+  const [typing, setTyping] = useState(false);
+  const [istyping, setIsTyping] = useState(false);
+
+  const toast = useToast();
+
+  // fetch all the chats between the users
+  const fetchMessages = async () => {
+    if (!selectedChat) return;
+
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      setLoading(true);
+
+      const { data } = await axios.get(
+        `/api/message/${selectedChat._id}`,
+        config
+      );
+      setMessages(data);
+      setLoading(false);
+
+      // Join the Room socket  particular selectedChat.id is the particular room id
+      // and the user will join this  will
+      socket.emit("join chat", selectedChat._id);
+    } catch (error) {
+      toast({
+        title: "Error Occured!",
+        description: "Failed to Load the Messages",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
+  };
+
+  const sendMessage = async (event) => {
+    console.log("Message Send handler");
+    if (event.key === "Enter" && newMessage) {
+      try {
+        const config = {
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+        setNewMessage("");
+        const { data } = await axios.post(
+          "api/message",
+          {
+            content: newMessage,
+            chatId: selectedChat._id,
+          },
+          config
+        );
+        console.log("data message445ss", data);
+        socket.emit("new message", data);
+
+        setMessages([...messages, data]); // update messages array with new messages
+
+        // setFetchAgain(!fetchAgain);   // will give the
+      } catch (error) {
+        toast({
+          title: "Error Occured!",
+          description: "Failed to send the Message",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "top-left",
+        });
+      }
+    }
+  };
+
+  const typingHandler = (e) => {
+    console.log("Typing handler for real time");
+    setNewMessage(e.target.value);
+
+    if (!socketConnected) return;
+    if(!typing){
+      setTyping(true);
+      socket.emit("typing", selectedChat._id);
+    }
+  };
+
+
+  // setup socket at the top of thecomponents
+  useEffect(() => {
+    socket = io(ENDPOINT); // this will connect socket.io with client to server
+    // now send the user to backend server socket - to create the room
+    socket.emit("setup", user);
+    socket.on("connection", () => setSocketConnected(true));
+
+    // Scoket for typing status
+    socket.on("typing", () => setIsTyping(true));
+    socket.on("stop typing", () => setIsTyping(false)); 
+  }, []);
+
+  useEffect(() => {
+    fetchMessages();
+    console.log("messages toatl", messages);
+
+    selectedChatCompare = selectedChat; // to have the backup of the selectedChat to notification
+  }, [selectedChat]);
+  // UseEffect for Socket.io
+
+  useEffect(() => {
+    // we are recieving the message here from the socket
+    socket.on("message recieved", (newMessageRecieved) => {
+      if (
+        !selectedChatCompare ||
+        selectedChatCompare._id !== newMessageRecieved.chat._id
+      ) {
+        // give notification
+      } else {
+        setMessages([...messages, newMessageRecieved]);
+      }
+    });
+  });
 
   return (
     <>
@@ -39,6 +181,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 <UpdateGroupChatModal
                   fetchAgain={fetchAgain}
                   setFetchAgain={setFetchAgain}
+                  fetchMessages={fetchMessages}
                 />
               </>
             )}
@@ -54,7 +197,33 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             borderRadius="lg"
             overflowY="hidden"
           >
-            {/* Messages here */}
+            {loading ? (
+              <Spinner
+                size="xl"
+                w={20}
+                h={20}
+                alignSelf="center"
+                margin="auto"
+              />
+            ) : (
+              <div className="messages">
+                <ScrollableChat messages={messages} />
+              </div>
+            )}
+            <FormControl
+              onKeyDown={sendMessage}
+              id="first-name"
+              isRequired
+              mt={3}
+            >
+              <Input
+                variant="filled"
+                bg="#E0E0E0"
+                placeholder="Enter a message.."
+                value={newMessage}
+                onChange={typingHandler}
+              />
+            </FormControl>
           </Box>
         </>
       ) : (
