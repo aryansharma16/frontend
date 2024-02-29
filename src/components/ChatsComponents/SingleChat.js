@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
+import Lottie from "react-lottie";
+import animationData from "../../animations/typing.json";
+
 import "./styles.css";
 import {
   Box,
@@ -31,7 +34,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [istyping, setIsTyping] = useState(false);
 
   const toast = useToast();
-
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
   // fetch all the chats between the users
   const fetchMessages = async () => {
     if (!selectedChat) return;
@@ -70,6 +80,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const sendMessage = async (event) => {
     console.log("Message Send handler");
     if (event.key === "Enter" && newMessage) {
+      socket.emit("stop typing", selectedChat._id);
+
       try {
         const config = {
           headers: {
@@ -108,25 +120,36 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const typingHandler = (e) => {
     console.log("Typing handler for real time");
     setNewMessage(e.target.value);
-
+    // tping indicator logic
     if (!socketConnected) return;
-    if(!typing){
+    if (!typing) {
       setTyping(true);
       socket.emit("typing", selectedChat._id);
     }
+    // debouncing or throttele  function which will decide when to stop typing
+    // like we stop the typing animation if the user is not typing anymore
+    let lastTypingTime = new Date().getTime();
+    var timerLength = 3000;
+    setTimeout(() => {
+      var timeNow = new Date().getTime();
+      var timeDiff = timeNow - lastTypingTime;
+      if (timeDiff >= timerLength && typing) {
+        socket.emit("stop typing", selectedChat._id);
+        setTyping(false);
+      }
+    }, timerLength);
   };
-
 
   // setup socket at the top of thecomponents
   useEffect(() => {
     socket = io(ENDPOINT); // this will connect socket.io with client to server
     // now send the user to backend server socket - to create the room
     socket.emit("setup", user);
-    socket.on("connection", () => setSocketConnected(true));
+    socket.on("connected", () => setSocketConnected(true));
 
     // Scoket for typing status
     socket.on("typing", () => setIsTyping(true));
-    socket.on("stop typing", () => setIsTyping(false)); 
+    socket.on("stop typing", () => setIsTyping(false));
   }, []);
 
   useEffect(() => {
@@ -216,6 +239,18 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               isRequired
               mt={3}
             >
+              {istyping ? (
+                <div>
+                  <Lottie
+                    options={defaultOptions}
+                    // height={50}
+                    width={70}
+                    style={{ marginBottom: 15, marginLeft: 0 }}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
               <Input
                 variant="filled"
                 bg="#E0E0E0"
