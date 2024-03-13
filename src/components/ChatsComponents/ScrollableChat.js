@@ -8,7 +8,7 @@ import {
 } from "../../config/ChatLogic";
 import { ChatState } from "../../Context/ChatProvider";
 import { Tooltip, Avatar } from "@chakra-ui/react";
-// import { Avatar } from "@chakra-ui/avatar";
+// import { Avatar } from "@chakra-ui/avatar"; 
    
 const ScrollableChat = ({ messages }) => {
   const { user } = ChatState();
