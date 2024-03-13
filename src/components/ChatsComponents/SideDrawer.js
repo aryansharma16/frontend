@@ -38,9 +38,19 @@ import axios from "axios";
 import ChatLoading from "../Loaders/ChatLoading";
 import UserListItem from "../UserAvatar/UserListItem";
 import ToggleSwitch from "../Theme/ToggleSwitch";
+import { getSender } from "../../config/ChatLogic";
+import NotificationBadge, { Effect } from "react-notification-badge";
 
 const SideDrawer = () => {
-  const { user, setSelectedChat, selectedChat, chats, setChats } = ChatState();
+  const {
+    user,
+    setSelectedChat,
+    selectedChat,
+    chats,
+    setChats,
+    notification,
+    setNotification,
+  } = ChatState();
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -154,11 +164,28 @@ const SideDrawer = () => {
             <ToggleSwitch />
 
             <MenuButton p={1}>
+            <NotificationBadge
+                count={notification.length}
+                effect={Effect.SCALE}
+              />
               <BellIcon fontSize="2xl" m={1} />
             </MenuButton>
-            {/* <MenuList>
-
-            </MenuList> */}
+            <MenuList pl={2}>
+              {!notification.length && "No new Meesagesa"}
+              {notification.map((notif) => (
+                <MenuItem
+                  key={notif._id}
+                  onClick={() => {
+                    setSelectedChat(notif.chat);
+                    setNotification(notification.filter((n) => n !== notif));
+                  }}
+                >
+                  {notif.chat.isGroupChat
+                    ? `New Message in ${notif.chat.chatName}`
+                    : `New Message From ${getSender(user, notif.chat.users)}`}
+                </MenuItem>
+              ))}
+            </MenuList>
           </Menu>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
