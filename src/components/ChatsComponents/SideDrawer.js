@@ -39,7 +39,6 @@ import ChatLoading from "../Loaders/ChatLoading";
 import UserListItem from "../UserAvatar/UserListItem";
 import ToggleSwitch from "../Theme/ToggleSwitch";
 import { getSender } from "../../config/ChatLogic";
-import NotificationBadge, { Effect } from "react-notification-badge";
 
 const SideDrawer = () => {
   const {
@@ -164,10 +163,10 @@ const SideDrawer = () => {
             <ToggleSwitch />
 
             <MenuButton p={1}>
-            <NotificationBadge
+            {/* <NotificationBadge
                 count={notification.length}
                 effect={Effect.SCALE}
-              />
+              /> */}
               <BellIcon fontSize="2xl" m={1} />
             </MenuButton>
             <MenuList pl={2}>
