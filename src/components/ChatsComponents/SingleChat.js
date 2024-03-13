@@ -25,7 +25,16 @@ const ENDPOINT = "http://localhost:5200"; // backend server - will be  chnage wh
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
-  const { user, chats, setChats, selectedChat, setSelectedChat } = ChatState();
+  const {
+    user,
+    chats,
+    setChats,
+    selectedChat,
+    setSelectedChat,
+    notification,
+    setNotification,
+  } = ChatState();
+
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
@@ -168,12 +177,17 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         selectedChatCompare._id !== newMessageRecieved.chat._id
       ) {
         // give notification
+        if (!notification.includes(newMessageRecieved)) {
+          // check that if the newmessage is not in the notification array then add it
+          setNotification([newMessageRecieved, ...notification]);
+          setFetchAgain(!fetchAgain); // fetch again chats so latest message set accordingly
+        }
       } else {
         setMessages([...messages, newMessageRecieved]);
       }
     });
   });
-
+console.log(notification, "notifatctionns array ....")
   return (
     <>
       {selectedChat ? (
