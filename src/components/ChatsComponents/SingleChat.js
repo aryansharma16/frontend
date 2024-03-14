@@ -156,7 +156,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   // setup socket at the top of thecomponents
   useEffect(() => {
-    socket = io(ENDPOINT); // this will connect socket.io with client to server
+    socket = io(environment.baseURL); // this will connect socket.io with client to server
     // now send the user to backend server socket - to create the room
     socket.emit("setup", user);
     socket.on("connected", () => setSocketConnected(true));
