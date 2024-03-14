@@ -12,6 +12,7 @@ import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
+import { environment } from "../../enviroment";
 
 const Login = () => {
   const toast = useToast();
@@ -46,7 +47,7 @@ const Login = () => {
       };
 
       const { data } = await axios.post(
-        "/api/user/login",
+        `${environment.baseURL}/api/user/login`,
         { email, password },
         config
       );
@@ -65,7 +66,6 @@ const Login = () => {
     } catch (error) {
       toast({
         title: "Error Occured!",
-        description: error.response.data.message,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -105,7 +105,7 @@ const Login = () => {
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
-        isLoading ={Loading}
+        isLoading={Loading}
       >
         Login
       </Button>

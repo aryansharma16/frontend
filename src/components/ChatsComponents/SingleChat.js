@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import Lottie from "react-lottie";
 import animationData from "../../animations/typing.json";
+// import { environment } from "../../environment";
 
 import "./styles.css";
 import {
@@ -20,8 +21,12 @@ import UpdateGroupChatModal from "./UpdateGroupChatModal";
 import axios from "axios";
 import ScrollableChat from "./ScrollableChat";
 import io from "socket.io-client";
+import { environment } from "../../enviroment";
 
-const ENDPOINT = "http://localhost:5200"; // backend server - will be  chnage when be deployed
+const ENDPOINT = "http://localhost:5200"; // backend server - will be  chnage when be deployed.;/'
+
+// const ENDPOINT = environment.baseURL;
+// console.log(object)
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -65,7 +70,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       setLoading(true);
 
       const { data } = await axios.get(
-        `/api/message/${selectedChat._id}`,
+        `${environment.baseURL}/api/message/${selectedChat._id}`,
         config
       );
       setMessages(data);
