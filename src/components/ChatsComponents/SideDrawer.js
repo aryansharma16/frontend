@@ -161,7 +161,6 @@ const SideDrawer = () => {
             {/* <Button onClick={toggleColorMode} aria-label="Toggle color mode" variant="ghost">
           {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
         </Button> */}
-            <ToggleSwitch />
 
             <MenuButton p={1}>
             {/* <NotificationBadge
