@@ -21,6 +21,7 @@ import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../UserAvatar/UserBadgeItem";
 import axios from "axios";
 import UserListItem from "../UserAvatar/UserListItem";
+import { environment } from "../../enviroment";
 
 const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain,fetchMessages }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -55,7 +56,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain,fetchMessages }) => {
         },
       };
       const { data } = await axios.put(
-        `/api/chat/groupremove`,
+        `${environment.baseURL}/api/chat/groupremove`,
         {
           chatId: selectedChat._id,
           userId: user1._id,
@@ -94,7 +95,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain,fetchMessages }) => {
       };
 
       const { data } = await axios.put(
-        `/api/chat/rename`,
+        `${environment.baseURL}/api/chat/rename`,
         {
           chatId: selectedChat._id,
           chatName: groupChatName, // new Name
@@ -135,7 +136,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain,fetchMessages }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axios.get(`${environment.baseURL}/api/user?search=${search}`, config);
       console.log(data, " Users For group seacrhhhhing");
       setLoading(false);
       setSearchResult(data);
@@ -184,7 +185,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain,fetchMessages }) => {
         },
       };
       const { data } = await axios.put(
-        `/api/chat/groupadd`,
+        `${environment.baseURL}/api/chat/groupadd`,
         {
           chatId: selectedChat._id,
           userId: user1._id,

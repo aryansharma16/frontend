@@ -19,6 +19,7 @@ import UserListItem from "../UserAvatar/UserListItem";
 import axios from "axios";
 import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../UserAvatar/UserBadgeItem";
+import { environment } from "../../enviroment";
 
 const GroupChatModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -43,7 +44,7 @@ const GroupChatModal = ({ children }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axios.get(`${environment.baseURL}/api/user?search=${search}`, config);
       console.log(data, " Users For group seacrhhhhing");
       setLoading(false);
       setSearchResult(data);
@@ -80,7 +81,7 @@ const GroupChatModal = ({ children }) => {
         },
       };
       const { data } = await axios.post(
-        `/api/chat/group`,
+        `${environment.baseURL}/api/chat/group`,
         {
           name: groupChatName,
           users: JSON.stringify(selectedUsers.map((u) => u._id)),

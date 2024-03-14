@@ -10,6 +10,7 @@ import {
 import React, { useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { environment } from "../../enviroment";
 
 import axios from "axios";
 const Signup = () => {
@@ -104,7 +105,7 @@ const Signup = () => {
       };
 
       const { data } = await axios.post(
-        "/api/user",
+        `${environment.baseURL}/api/user`,
         { name, email, password, pic },
         config
       );

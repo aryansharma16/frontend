@@ -39,6 +39,7 @@ import ChatLoading from "../Loaders/ChatLoading";
 import UserListItem from "../UserAvatar/UserListItem";
 import ToggleSwitch from "../Theme/ToggleSwitch";
 import { getSender } from "../../config/ChatLogic";
+import { environment } from "../../enviroment";
 
 const SideDrawer = () => {
   const {
@@ -86,7 +87,7 @@ const SideDrawer = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axios.get(`${environment.baseURL}/api/user?search=${search}`, config);
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
@@ -113,7 +114,7 @@ const SideDrawer = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.post("/api/chat", { userId }, config);
+      const { data } = await axios.post(`${environment.baseURL}/api/chat`, { userId }, config);
 
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       setLoadingChat(false);
