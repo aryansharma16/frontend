@@ -4,7 +4,7 @@
   min-height: 100vh;
   display: flex;
   /* background-image: url("./backLogin.jpg"); */
-  background: linear-gradient(to left, rgb(135, 232, 138), rgb(135, 206, 235));
+  background: linear-gradient(to left, rgb(1, 142, 6), rgb(1, 104, 144));
   background-position: center;
   background-size: cover;
   color: black;
@@ -41,4 +41,28 @@
   color: black;
   background-color:rgb(102, 200, 140)!important; 
   transition: 0.4s;
+}
+
+
+.NotificationBadge {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 0.2em 0.5em;
+  font-size: 1em;
+  transition: all 0.3s ease-in-out;
+}
+
+.NotificationBadge.enlarged {
+  font-size: 2em;
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
+  }
 }

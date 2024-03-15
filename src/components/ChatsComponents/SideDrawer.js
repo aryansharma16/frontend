@@ -158,9 +158,6 @@ const SideDrawer = () => {
         </Text>
         <div>
           <Menu>
-            {/* <Button onClick={toggleColorMode} aria-label="Toggle color mode" variant="ghost">
-          {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-        </Button> */}
 
             <MenuButton p={1}>
             {/* <NotificationBadge
@@ -168,6 +165,7 @@ const SideDrawer = () => {
                 effect={Effect.SCALE}
               /> */}
               <BellIcon fontSize="2xl" m={1} />
+              <span className="NotificationBadge">{notification.length}</span>
             </MenuButton>
             <MenuList pl={2}>
               {!notification.length && "No new Meesagesa"}

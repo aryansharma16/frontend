@@ -62,7 +62,7 @@ const Login = () => {
       });
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
-      navigate("/chats");
+      navigate("/studentboard");
     } catch (error) {
       toast({
         title: "Error Occured!",
