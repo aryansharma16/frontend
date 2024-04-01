@@ -11,16 +11,18 @@ import {
 } from "@chakra-ui/react";
 import Login from "../components/Authentication/Login";
 import { createNavigate, useNavigate } from "react-router-dom";
-
 import Signup from "../components/Authentication/Signup";
+
 const Homepage = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("userInfo"));
+  const handleRegisterClick = () => {
+  };
+  // useEffect(() => {
+  //   const user = JSON.parse(localStorage.getItem("userInfo"));
 
-    if (!user) navigate("/chats");
-  }, [navigate]);
+  //   if (!user) navigate("/chats");
+  // }, [navigate]);
   return (
     <Container maxWidth="xl" centerContent>
       <Box
@@ -65,6 +67,19 @@ const Homepage = () => {
             </TabPanel>
           </TabPanels>
         </Tabs>
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "20px",
+          cursor: "pointer",
+          color:"red",
+
+          textDecoration: "underline",
+        }}
+        onClick={handleRegisterClick}
+      >
+        New to our website? Register first!
+      </div>
       </Box>
     </Container>
   );

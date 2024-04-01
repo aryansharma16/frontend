@@ -3,8 +3,8 @@
 .App {
   min-height: 100vh;
   display: flex;
-  /* background-image: url("./backLogin.jpg"); */
-  background: linear-gradient(to left, rgb(1, 142, 6), rgb(1, 104, 144));
+  background-image: url("./backLogin.jpg");
+  /* background: linear-gradient(to left, rgb(1, 142, 6), rgb(1, 104, 144)); */
   background-position: center;
   background-size: cover;
   color: black;
@@ -65,4 +65,54 @@
   to {
     transform: scale(1.2);
   }
+}
+
+
+/* ImageSlider.css */
+.ImageSliderWelcome{
+  margin-top: 100px;
+}
+.mySlides {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.slideshow-container {
+  position: relative;
+}
+
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }
