@@ -20,7 +20,8 @@ const WelcomePage = () => {
       <section className="homePageSection2">
         <div className="homeHerosectionWrapper">
           <div className="textWrapper">
-            <h2 className="mainheading1">Welcome to</h2>
+            <h2 className="mainheading1">Welcome to </h2>
+
             <h3 className="mainheading2">Our Learning Hub</h3>
             <div className="headlineRunning">
               <marquee behavior="scroll" direction="left">
@@ -36,13 +37,12 @@ const WelcomePage = () => {
               our hub has everything you need.
             </p>
             <div className="button_groupMain">
-            <button className="button-64" role="button">
+              <button className="button-64" role="button">
                 <span className="text">Start Your Journey Now</span>
               </button>
               <button className="button-616" onClick={handleButtonClick}>
                 <span className="text">Sign Up Now</span>
               </button>
-            
             </div>
           </div>
           <div className="gifWrapper">

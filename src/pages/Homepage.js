@@ -21,8 +21,6 @@ const Homepage = () => {
     signupTabRef.current.click();
   };
 
-  // You can add a state to track which tab is active
-  const [activeTabIndex, setActiveTabIndex] = React.useState(0);
 
   return (
     <Container maxWidth="xl" centerContent>
@@ -54,7 +52,7 @@ const Homepage = () => {
         borderRadius="10px"
         color="black"
       >
-        <Tabs variant="soft-rounded" onChange={(index) => setActiveTabIndex(index)}>
+        <Tabs variant="soft-rounded" >
           <TabList mb="1em" backgroundColor="#EEF5FF" borderRadius="19px">
             <Tab width="50%">LogIn</Tab>
             <Tab ref={signupTabRef} width="50%">

@@ -3,7 +3,7 @@
 .App {
   min-height: 100vh;
   display: flex;
-  background-image: url("./animations/motionbackground.gif");
+  background-image: url("./animations/backgroundWhiteGraphics.gif");
   /* background: linear-gradient(to left, rgb(1, 142, 6), rgb(1, 104, 144)); */
   background-position: center;
   background-size: cover;
