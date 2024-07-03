@@ -2,9 +2,16 @@ import React, { useEffect, useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import { Box, Heading, Flex, Image, Text, Button } from "@chakra-ui/react";
 import SideDrawer from "../ChatsComponents/SideDrawer";
+import { useNavigate } from "react-router-dom";
 
 const StudentHome = () => {
   const { user } = ChatState();
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    // Navigate to the "/sign" route
+    navigate("/chats");
+  };
   return (
     <div style={{ width: "100%" }}>
       {user && <SideDrawer />}
@@ -36,7 +43,7 @@ const StudentHome = () => {
             chat, video calls, and assignment tracking. Stay organized, stay
             connected, and stay ahead.
           </Text>
-          <Button size="lg" colorScheme="green" mt="24px">
+          <Button onClick={handleButtonClick} size="lg" colorScheme="green" mt="24px">
             Get Started
           </Button>
         </Box>

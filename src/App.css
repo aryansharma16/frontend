@@ -3,7 +3,7 @@
 .App {
   min-height: 100vh;
   display: flex;
-  background-image: url("./backLogin.jpg");
+  background-image: url("./animations/motionbackground.gif");
   /* background: linear-gradient(to left, rgb(1, 142, 6), rgb(1, 104, 144)); */
   background-position: center;
   background-size: cover;
@@ -71,7 +71,21 @@
 /* ImageSlider.css */
 .ImageSliderWelcome{
   margin-top: 100px;
+  box-shadow: 0px 10px 14px rgba(115, 115, 115, 0.5);
+  background-color: rgba(209, 230, 248, 0.5);
+  border-radius: 20px;
+
+
 }
+.ImageSliderWelcome:hover{
+  margin-top: 100px;
+  box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  background-color: rgba(162, 208, 248, 0.5);
+  color: wheat;
+}
+
+
 .mySlides {
   display: none;
 }
@@ -86,6 +100,7 @@
 
 .slideshow-container {
   position: relative;
+  border-radius: 20px;
 }
 
 .prev,
@@ -115,4 +130,210 @@
 .prev:hover,
 .next:hover {
   background-color: rgba(0, 0, 0, 0.8);
+}
+.WelcomePageCaption{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 20px;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  color: #000000;
+  background-color: #bbdcee;
+  margin-bottom: 20px;
+}
+.AppHeadingHome{
+  font-size: 45px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #555;
+  text-decoration: underline;
+}
+
+.homePageSection2 {
+  padding: 20px;
+  background-color: #ffffff; /* Light grey background color */
+  margin-top: 67px;
+  text-align: center; /* Center-align text */
+}
+.homeHerosectionWrapper {
+  display: flex;
+  justify-content: space-between; /* Adjusts the space between the text and gif sections */
+  align-items: center;
+  margin: auto;
+  padding: 20px;
+}
+
+.textWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns text to the left */
+  margin-right: 20px; /* Adds some space between the text and the gif */
+}
+
+.mainheading1 {
+  font-size: 3em; /* Largest font size */
+  margin: 0;
+  background: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+
+.mainheading2 {
+  font-size: 2.5em; /* Slightly smaller font size */
+  margin: 0;
+}
+
+.headlineRunning {
+  font-size: 1.2em;
+  margin-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: blue;
+  box-sizing: border-box;
+  
+}
+
+.headlineRunning::before {
+  content: attr(data-text);
+  position: absolute;
+  white-space: nowrap;
+  animation: scroll 15s linear infinite;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.description {
+  font-size: 1em;
+  margin: 10px 0;
+}
+
+.landingPageGif {
+  width: 650px;
+  height: 550px;
+  padding: 23px;
+}
+
+.gifWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button_groupMain{
+  display: flex;
+  gap: 30px;
+
+}
+
+/* CSS */
+.button-64 {
+  margin-top: 20px;
+  align-items: center;
+  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #000000;
+  display: flex;
+  font-family: Phantomsans, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 140px;
+  padding: 3px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.button-64:active,
+.button-64:hover {
+  outline: 0;
+}
+
+.button-64 span {
+  background-color: rgb(249, 249, 252);
+  padding: 16px 24px;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+}
+
+.button-64:hover span {
+  background: none;
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .button-64 {
+    font-size: 24px;
+    min-width: 196px;
+  }
+}
+
+
+
+
+/* CSS */
+.button-616 {
+  margin-top: 20px;
+  align-items: center;
+  background-image: linear-gradient(144deg, #FF5733, #C70039 50%, #900C3F);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #000000;
+  display: flex;
+  font-family: Phantomsans, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 140px;
+  padding: 3px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.button-616:active,
+.button-616:hover {
+  outline: 0;
+}
+
+.button-616 span {
+  background-color: rgb(249, 249, 252);
+  padding: 16px 24px;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+}
+
+.button-616:hover span {
+  background: none;
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .button-616 {
+    font-size: 24px;
+    min-width: 196px;
+  }
 }

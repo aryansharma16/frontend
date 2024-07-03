@@ -19,22 +19,25 @@ const ImageSlider = () => {
 
   const slides = [
     {
-      src: "http://res.cloudinary.com/aryan2002cloud/image/upload/v1711525211/whyazugvqplxmnavqtow.png",
-      alt: "Online Assesment APP",
-      caption:
-        "Empower your growth with our interactive online assessment platform. ",
-    },
-    {
-      src: "http://res.cloudinary.com/aryan2002cloud/image/upload/v1711966333/bfqdwhnvshsfbenp02iz.jpg",
-      alt: "Snow",
-      caption:
-        "Bring your conversations to life with crystal-clear video calls on our intuitive video calling app.",
-    },
-    {
+      AppName: "ZenthConvo ",
       src: "http://res.cloudinary.com/aryan2002cloud/image/upload/v1711623287/brbyh0ebtcvct3brisos.jpg",
       alt: "Mountains",
       caption:
-        "Stay connected, anytime, anywhere - our chat app brings people closer, one message at a time.",
+        "- Stay connected, anytime, anywhere - our chat app brings people closer, one message at a time.",
+    },
+    {
+      AppName: "ProProctor ",
+      src: "http://res.cloudinary.com/aryan2002cloud/image/upload/v1711525211/whyazugvqplxmnavqtow.png",
+      alt: "Online Assesment APP",
+      caption:
+        "- Empower your growth with our interactive online assessment platform. ",
+    },
+    {
+      AppName: "Agora ",
+      src: "http://res.cloudinary.com/aryan2002cloud/image/upload/v1711966333/bfqdwhnvshsfbenp02iz.jpg",
+      alt: "Snow",
+      caption:
+        "- Bring your conversations to life with crystal-clear video calls on our intuitive video calling app.",
     },
   ];
 
@@ -47,6 +50,7 @@ const ImageSlider = () => {
             index === currentSlide ? "show" : "hide"
           }`}
         >
+          <div className="AppHeadingHome">{slide.AppName}</div>
           <Box
             bg="teal.500"
             color="white"
@@ -54,17 +58,17 @@ const ImageSlider = () => {
             p={2}
             fontSize="md"
             position="absolute"
-            top={4}
-            right={4}
+            top={79}
+            right={2}
           >
             {index + 1} / {slides.length}
           </Box>
           <Image
             src={slide.src}
-            style={{ width: "100%", height: "380px" }}
+            style={{ width: "100%", height: "380px", borderRadius: "20px" }}
             alt={slide.alt}
           />
-          <div className="text">{slide.caption}</div>
+          <div className="WelcomePageCaption">{slide.caption}</div>
         </div>
       ))}
 
