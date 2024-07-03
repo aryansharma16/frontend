@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import {
   Container,
   Box,
@@ -21,10 +21,8 @@ const Homepage = () => {
     signupTabRef.current.click();
   };
 
-  // useEffect(() => {
-  //   const user = JSON.parse(localStorage.getItem("userInfo"));
-  //   if (!user) navigate("/chats");
-  // }, [navigate]);
+  // You can add a state to track which tab is active
+  const [activeTabIndex, setActiveTabIndex] = React.useState(0);
 
   return (
     <Container maxWidth="xl" centerContent>
@@ -56,7 +54,7 @@ const Homepage = () => {
         borderRadius="10px"
         color="black"
       >
-        <Tabs variant="soft-rounded">
+        <Tabs variant="soft-rounded" onChange={(index) => setActiveTabIndex(index)}>
           <TabList mb="1em" backgroundColor="#EEF5FF" borderRadius="19px">
             <Tab width="50%">LogIn</Tab>
             <Tab ref={signupTabRef} width="50%">
@@ -66,24 +64,24 @@ const Homepage = () => {
           <TabPanels>
             <TabPanel>
               <Login />
+              <div
+                style={{
+                  textAlign: "center",
+                  marginTop: "20px",
+                  cursor: "pointer",
+                  color: "red",
+                  textDecoration: "underline",
+                }}
+                onClick={handleRegisterClick}
+              >
+                New to our website? Register first!
+              </div>
             </TabPanel>
             <TabPanel>
               <Signup />
             </TabPanel>
           </TabPanels>
         </Tabs>
-        <div
-          style={{
-            textAlign: "center",
-            marginTop: "20px",
-            cursor: "pointer",
-            color: "red",
-            textDecoration: "underline",
-          }}
-          onClick={handleRegisterClick}
-        >
-          New to our website? Register first!
-        </div>
       </Box>
     </Container>
   );
