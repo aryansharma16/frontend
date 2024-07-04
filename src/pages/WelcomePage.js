@@ -17,6 +17,8 @@ const WelcomePage = () => {
   return (
     <div className="Home" style={{ width: "100%" }}>
       <WelComeNavbar handleButtonClick={handleButtonClick} />
+
+    
       <section className="homePageSection2">
         <div className="homeHerosectionWrapper">
           <div className="textWrapper">
